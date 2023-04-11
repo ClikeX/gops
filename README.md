@@ -1,3 +1,3 @@
 # GOPS
 
-A basic Go program to download projects into $HOME/Code/<host>/<user>/<repo>
+A basic Go program to download projects into domain name seperarted projects directory.
