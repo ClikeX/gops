@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/url"
 	"os"
-	"os/exec"
 	"strings"
 
+	git "github.com/go-git/go-git/v5"
 	giturls "github.com/whilp/git-urls"
 )
 
@@ -32,13 +32,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Clone repo
-	out, err := exec.Command("git", "clone", os.Args[1], path + "/" + repo ).Output()
-	if err != nil {
-		fmt.Println(err)
+	_, gerr := git.PlainClone(path + "/" + repo, false, &git.CloneOptions{
+			URL:      os.Args[1],
+			Progress: os.Stdout,
+	})
+
+	if gerr != nil {
+		fmt.Println(gerr)
 		os.Exit(1)
 	}
-	fmt.Println(string(out))
 }
 
 func ParseURL(uri string) (*url.URL, error) {
