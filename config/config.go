@@ -17,13 +17,11 @@ type Config struct {
 }
 
 func LoadConfig() Config {
-		// Check if config file exists, if not create it
-	checkConfigFile()
-
-	config_file := os.Getenv("HOME") + "/.config/gops.toml"
-	checkFile(config_file)
-	file, _ := os.ReadFile(config_file)
 	var cfg Config
+	config_file := findConfigFile()
+	checkConfigFile(config_file)
+
+	file, _ := os.ReadFile(config_file)
 
 	err := toml.Unmarshal([]byte(file), &cfg)
 	if err != nil {
@@ -33,24 +31,22 @@ func LoadConfig() Config {
 	return cfg
 }
 
-func checkFile(path string) bool {
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return false
-	}
-	return true
-}
-
-func checkConfigDir() {
-	if err := os.MkdirAll(os.Getenv("HOME") + "/.config", 0755); err != nil {
-		fmt.Println(err)
+func findConfigFile() string {
+	var file string
+	if isXDGConfigDirSet() {
+		createXDGConfigDir()
+		file = findXDGConfigDir() + "/gops.toml"
+	} else if isUnixHomeSet() {
+		createUnixConfigDir()
+		file = findUnixConfigDir() + "/gops.toml"
+	} else {
+		fmt.Println("Error while finding config directory")
 		os.Exit(1)
 	}
+	return file
 }
 
-func checkConfigFile() {
-	checkConfigDir()
-
-	file := os.Getenv("HOME") + "/.config/gops.toml"
+func checkConfigFile(file string) {
 	if _, err := os.Stat(file); os.IsNotExist(err) {
 		fmt.Println("Config file does not exist")
 		file, err := os.Create(file)
