@@ -15,7 +15,7 @@ build: clean
 
 # Build the binary for the current OS
 _build_current:
-	go build -o bin/{{binary_name}}-{{os}}-{{arch}} main.go
+	go build -o ./bin/{{binary_name}}-{{os}}-{{arch}} main.go
 
 # Run the binary with the given url
 run url:
@@ -23,7 +23,7 @@ run url:
 
 # Clean up the bin directory
 clean:
-	rm -f bin/{{binary_name}}-*
+	rm -f ./bin/{{binary_name}}-*
 
 # Install gops to $HOME/.bin, or to a custom directory if specified
 install_to_home bin_dir=(home_dir + '/.bin'): _build_current
