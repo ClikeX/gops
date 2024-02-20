@@ -9,29 +9,9 @@ A basic command-line tool that downloads git repos from urls, using the repo/url
 Clone the repo
 ```bash
 git clone git@github.com:ClikeX/gops.git
+cd gops
+go install
 ```
-
-#### Just
-
-```bash
-# this installs just to ~/.bin/
-just i
-
-# Custom install path example
-just i /usr/bin
-```
-
-#### Manual
-
-```bash
-go build -o bin/gops
-mv bin/gops ~/home/.bin
-```
-
-### Binary
-TODO
-
-
 
 ## Roadmap
 
