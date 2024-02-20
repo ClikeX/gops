@@ -10,10 +10,10 @@ import (
 )
 
 type Config struct {
-	Version	int
-	Name				string
-	BinDir 			string
-	ProjectDir 	string
+	Version    int
+	Name       string
+	BinDir     string
+	ProjectDir string
 }
 
 func LoadConfig() Config {
@@ -51,14 +51,14 @@ func checkConfigFile(file string) {
 		fmt.Println("Config file does not exist")
 		file, err := os.Create(file)
 		if err != nil {
-				log.Fatal(err)
+			log.Fatal(err)
 		}
 		defer file.Close()
-	}	else {
+	} else {
 		currentTime := time.Now().Local()
 		err = os.Chtimes(file, currentTime, currentTime)
 		if err != nil {
-				fmt.Println(err)
+			fmt.Println(err)
 		}
 	}
 }

@@ -9,7 +9,7 @@ func findXDGConfigDir() string {
 	if isXDGConfigDirSet() {
 		return os.Getenv("XDG_CONFIG_HOME")
 	} else {
-	return ""
+		return ""
 	}
 }
 

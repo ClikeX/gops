@@ -14,7 +14,7 @@ func findUnixConfigDir() string {
 }
 
 func createUnixConfigDir() {
-	if err := os.MkdirAll(os.Getenv("HOME") + "/.config", 0755); err != nil {
+	if err := os.MkdirAll(os.Getenv("HOME")+"/.config", 0755); err != nil {
 		os.Exit(1)
 	}
 }
